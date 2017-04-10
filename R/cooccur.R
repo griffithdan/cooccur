@@ -110,7 +110,7 @@ function(mat,
       pb <- txtProgressBar(min = 0, max = (nspp + nrow(obs_cooccur)), style = 3)
     }
       
-    #if(n_omitted == n_pairs){stop("No non-random results.")}
+    if(n_omitted == n_pairs){stop("No non-random results.")}
     
   # PREPARE OUTPUT TABLE
     
