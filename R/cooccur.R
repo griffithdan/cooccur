@@ -97,7 +97,7 @@ function(mat,
       prob_cooccur <- prob_cooccur[!is.na(exp_cooccur[,3]),]
       obs_cooccur <- obs_cooccur[!is.na(exp_cooccur[,3]),]
       exp_cooccur <- exp_cooccur[!is.na(exp_cooccur[,3]),]    
-      n_omitted <- nrow(exp_cooccur) - n_pairs
+      n_omitted <- n_pairs - nrow(exp_cooccur)
     
   # SHOULD WE APPLY A THRESHOLD FOR EXPECTED COOCCURs
         
