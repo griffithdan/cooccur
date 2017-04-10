@@ -92,14 +92,21 @@ function(mat,
       
     }
     
+  # REVOME NA from site_mask
+      n_pairs <- nrow(prob_cooccur)
+      prob_cooccur <- prob_cooccur[!is.na(exp_cooccur[,3]),]
+      obs_cooccur <- obs_cooccur[!is.na(exp_cooccur[,3]),]
+      exp_cooccur <- exp_cooccur[!is.na(exp_cooccur[,3]),]    
+      n_omitted <- nrow(exp_cooccur) - n_pairs
+    
   # SHOULD WE APPLY A THRESHOLD FOR EXPECTED COOCCURs
         
     if (thresh == TRUE){
-      n_pairs <- nrow(prob_cooccur)
+      n_pairs2 <- nrow(prob_cooccur)
       prob_cooccur <- prob_cooccur[exp_cooccur[,3]>=1,]
       obs_cooccur <- obs_cooccur[exp_cooccur[,3]>=1,]
       exp_cooccur <- exp_cooccur[exp_cooccur[,3]>=1,]
-      n_omitted <- n_pairs - nrow(prob_cooccur)
+      n_omitted <- n_pairs2 - nrow(prob_cooccur) + n_omitted
       pb <- txtProgressBar(min = 0, max = (nspp + nrow(obs_cooccur)), style = 3)
     }
     
