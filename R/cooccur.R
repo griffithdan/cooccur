@@ -94,21 +94,23 @@ function(mat,
     
   # REVOME NA from site_mask
       n_pairs <- nrow(prob_cooccur)
-      prob_cooccur <- prob_cooccur[!is.na(exp_cooccur[,3]),]
-      obs_cooccur <- obs_cooccur[!is.na(exp_cooccur[,3]),]
-      exp_cooccur <- exp_cooccur[!is.na(exp_cooccur[,3]),]    
+      prob_cooccur <- prob_cooccur[!is.na(exp_cooccur[,3]),,drop = F]
+      obs_cooccur <- obs_cooccur[!is.na(exp_cooccur[,3]),,drop = F]
+      exp_cooccur <- exp_cooccur[!is.na(exp_cooccur[,3]),,drop = F]    
       n_omitted <- n_pairs - nrow(exp_cooccur)
     
   # SHOULD WE APPLY A THRESHOLD FOR EXPECTED COOCCURs
         
     if (thresh == TRUE){
       n_pairs2 <- nrow(prob_cooccur)
-      prob_cooccur <- prob_cooccur[exp_cooccur[,3]>=1,]
-      obs_cooccur <- obs_cooccur[exp_cooccur[,3]>=1,]
-      exp_cooccur <- exp_cooccur[exp_cooccur[,3]>=1,]
+      prob_cooccur <- prob_cooccur[exp_cooccur[,3]>=1,,drop = F]
+      obs_cooccur <- obs_cooccur[exp_cooccur[,3]>=1,,drop = F]
+      exp_cooccur <- exp_cooccur[exp_cooccur[,3]>=1,,drop = F]
       n_omitted <- n_pairs2 - nrow(prob_cooccur) + n_omitted
       pb <- txtProgressBar(min = 0, max = (nspp + nrow(obs_cooccur)), style = 3)
     }
+      
+    if(n_omitted == n_pairs){stop("No non-random results.")}
     
   # PREPARE OUTPUT TABLE
     
