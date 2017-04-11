@@ -70,8 +70,8 @@ function(x, ...){
   postN <- nrow(comat)
 
 
-  comat <- comat[order(rowSums(comat)),]
-  comat <- comat[,order(colSums(comat))]
+  ##comat <- comat[order(rowSums(comat)),]
+  ##comat <- comat[,order(colSums(comat))]
   
   #comat <- rmrandomspp(orimat = comat, ...)
   
