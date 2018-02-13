@@ -63,28 +63,43 @@ function(mat,
     for (spp in 1:nspp){
       if (spp < nspp){
         for (spp_next in (spp + 1):nspp){
-          
-          pairs <- sum(as.numeric(mat[spp,site_mask[spp,]*site_mask[spp_next,]==1]==1&mat[spp_next,site_mask[spp,]*site_mask[spp_next,]==1]==1))
           row <- row + 1
-          #pairs <- 0
-          #for (site in 1:tsites){
-          #  if (spp_site_mat[spp,site] > 0 & spp_site_mat[spp_next,site] > 0){
-          #    pairs <- pairs + 1
-          #  }
-          #}
+
+          if(is.na(prob_occur[spp, spp_next])){
+            obs_cooccur[row,1] <- spp
+            obs_cooccur[row,2] <- spp_next
+            obs_cooccur[row,3] <- NA
           
-          obs_cooccur[row,1] <- spp
-          obs_cooccur[row,2] <- spp_next
-          obs_cooccur[row,3] <- pairs
-        
-          prob_cooccur[row,1] <- spp
-          prob_cooccur[row,2] <- spp_next
-          prob_cooccur[row,3] <- prob_occur[spp,spp_next] * prob_occur[spp_next,spp] # ORIGINAL prob_occur[spp,2] * prob_occur[spp_next,2]
+            prob_cooccur[row,1] <- spp
+            prob_cooccur[row,2] <- spp_next
+            prob_cooccur[row,3] <- NA
+            
+            exp_cooccur[row,1] <- spp
+            exp_cooccur[row,2] <- spp_next
+            exp_cooccur[row,3] <- NA
+            
+            
+          } else {
+            pairs <- sum(as.numeric(mat[spp,site_mask[spp,]*site_mask[spp_next,]==1]==1&mat[spp_next,site_mask[spp,]*site_mask[spp_next,]==1]==1))
+            #pairs <- 0
+            #for (site in 1:tsites){
+            #  if (spp_site_mat[spp,site] > 0 & spp_site_mat[spp_next,site] > 0){
+            #    pairs <- pairs + 1
+            #  }
+            #}
+            
+            obs_cooccur[row,1] <- spp
+            obs_cooccur[row,2] <- spp_next
+            obs_cooccur[row,3] <- pairs
           
-          exp_cooccur[row,1] <- spp
-          exp_cooccur[row,2] <- spp_next
-          exp_cooccur[row,3] <- prob_cooccur[row,3] * N_matrix[spp,spp_next] # original nsite
-        
+            prob_cooccur[row,1] <- spp
+            prob_cooccur[row,2] <- spp_next
+            prob_cooccur[row,3] <- prob_occur[spp,spp_next] * prob_occur[spp_next,spp] # ORIGINAL prob_occur[spp,2] * prob_occur[spp_next,2]
+            
+            exp_cooccur[row,1] <- spp
+            exp_cooccur[row,2] <- spp_next
+            exp_cooccur[row,3] <- prob_cooccur[row,3] * N_matrix[spp,spp_next] # original nsite
+          }
         }
       }
       
